@@ -1,13 +1,16 @@
-import React from 'react'
+import React, {useState} from 'react'
 import './WinningMessage.css'
 
-function WinningMessage() {
+function WinningMessage({ showWinningMessage, winnerMessage }) {
+	let thisClass = 'winning-message'
+	thisClass = thisClass + (showWinningMessage ? ' show' : null)
+	
 	return (
 		<div
-			className='winning-message'
+			className={thisClass}
 			id='winningMessage'
 		>
-			<div data-winning-message-text></div>
+			<div>{winnerMessage}</div>
 			<button id="restartButton">Restart</button>
 		</div>
 	)

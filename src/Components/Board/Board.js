@@ -1,17 +1,19 @@
-import React from 'react'
+import React, {useState} from 'react'
 import Cell from '../Cell/Cell'
 import './Board.css'
 
-function Board({ rows, cols }) {
+function Board({ rows, cols, symbols, setSymbols, setShowWinningMessage }) {
 	let totalCells = rows * cols
 	const boardStyles = {
 		gridTemplateColumns: `repeat(${cols}, auto)`,
 		gridTemplateRow: `repeat(${rows}, auto)`
 	}
 
+	const [currentTurn, setCurrentTurn] = useState('x')
+
 	return (
 		<div
-			className='board x'
+			className={'board ' + currentTurn}
 			id='board'
 			style={boardStyles}
 		>
@@ -21,6 +23,11 @@ function Board({ rows, cols }) {
 					nCell={index}
 					totalRows={rows}
 					totalCols={cols}
+					currentTurn={currentTurn}
+					symbols={symbols}
+					setSymbols={setSymbols}
+					setCurrentTurn={setCurrentTurn}
+					setShowWinningMessage={setShowWinningMessage}
 				/>
 			))}
 		</div>

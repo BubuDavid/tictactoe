@@ -1,14 +1,14 @@
 import React from 'react'
 import './Cell.css'
 
-function Cell({ nCell, totalRows, totalCols, symbol }) {
+function Cell({ nCell, totalRows, totalCols, symbols, setSymbols, currentTurn, setCurrentTurn, setShowWinningMessage }) {
 	let top = true,
 		bottom = true,
 		left = true,
 		right = true,
 		totalCells = totalRows * totalCols,
 		borderStyle = '1px solid black',
-		thisClass = 'cell ' + symbol
+		thisClass = 'cell ' + symbols[nCell]
 	
 	if (nCell >= 0 && nCell < totalCols) top = false
 	if (nCell >= totalCells - totalRows) bottom = false
@@ -23,11 +23,30 @@ function Cell({ nCell, totalRows, totalCols, symbol }) {
 		borderRight: right ? borderStyle: 'none',
 	}
 
+	const drawOnCell = (nCell, currentTurn, setCurrentTurn, symbols, setSymbols) => {
+		const newSymbols = [...symbols]
+		if (newSymbols[nCell] === '') newSymbols[nCell] = currentTurn
+		else return
+
+		if (currentTurn === 'x') setCurrentTurn('circle')
+		if (currentTurn === 'circle') setCurrentTurn('x')
+
+		setSymbols(newSymbols)
+
+		checkIfWinner(symbols, setShowWinningMessage)
+	}
+
+	const checkIfWinner = (symbols, setShowWinningMessage) => {
+		const winningStates = [
+			
+		]
+	}
+
 	return (
 		<div
 			className={thisClass}
 			style={cellStyles}
-			data-cell
+			onClick={() => drawOnCell(nCell, currentTurn, setCurrentTurn, symbols, setSymbols)}
 		>
 		</div>
 	)
