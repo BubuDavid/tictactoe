@@ -1,15 +1,21 @@
-import React, {useState} from 'react'
+import React, { useContext } from 'react'
+import TTContext from '../../Hooks/Context'
 import Cell from '../Cell/Cell'
 import './Board.css'
 
-function Board({ rows, cols, symbols, setSymbols, setShowWinningMessage }) {
-	let totalCells = rows * cols
+function Board() {
+
+	const {
+		currentTurn,
+		totalCells,
+		rows, cols
+	} = useContext(TTContext)
+
 	const boardStyles = {
 		gridTemplateColumns: `repeat(${cols}, auto)`,
 		gridTemplateRow: `repeat(${rows}, auto)`
 	}
 
-	const [currentTurn, setCurrentTurn] = useState('x')
 
 	return (
 		<div
@@ -21,13 +27,6 @@ function Board({ rows, cols, symbols, setSymbols, setShowWinningMessage }) {
 				<Cell
 					key={index}
 					nCell={index}
-					totalRows={rows}
-					totalCols={cols}
-					currentTurn={currentTurn}
-					symbols={symbols}
-					setSymbols={setSymbols}
-					setCurrentTurn={setCurrentTurn}
-					setShowWinningMessage={setShowWinningMessage}
 				/>
 			))}
 		</div>
