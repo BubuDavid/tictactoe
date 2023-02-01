@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import TTContext from '../../Hooks/Context'
 import Cell from '../Cell/Cell'
 import './Board.css'
@@ -8,8 +8,14 @@ function Board() {
 	const {
 		currentTurn,
 		totalCells,
-		rows, cols
+		rows, cols,
+		drawOnCell
 	} = useContext(TTContext)
+
+	useEffect(() => {
+		drawOnCell(-1, true)
+	}, [])
+	
 
 	const boardStyles = {
 		gridTemplateColumns: `repeat(${cols}, auto)`,

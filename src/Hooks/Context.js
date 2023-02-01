@@ -16,21 +16,43 @@ function TTProvider(props) {
 		return 0
 	}
 
-	const getModelMove = () => {
+	const drawOnCell = (nCell, onlyModelMove = false) => {
 		
+		const newSymbols = [...symbols]
+		if (!onlyModelMove) {
+			if (newSymbols[nCell] === '') newSymbols[nCell] = currentTurn
+			else return
+
+			// if (currentTurn === 'x') setCurrentTurn('circle')
+			// if (currentTurn === 'circle') setCurrentTurn('x')
+
+			setSymbols(newSymbols)
+			checkIfWinner()
+		}
+
+		let nextModelMove = getModelMove(nCell)
+		if (nextModelMove !== nCell) {
+			newSymbols[nextModelMove] = 'circle'
+			setSymbols(newSymbols)
+			checkIfWinner()
+		}
+
 	}
 
-	const drawOnCell = (nCell) => {
-		const newSymbols = [...symbols]
-		if (newSymbols[nCell] === '') newSymbols[nCell] = currentTurn
-		else return
-
-		if (currentTurn === 'x') setCurrentTurn('circle')
-		if (currentTurn === 'circle') setCurrentTurn('x')
-
-		setSymbols(newSymbols)
-
-		checkIfWinner(symbols, setShowWinningMessage)
+	const getModelMove = (nCell) => {
+		let nextMove = -1;
+		while (true) {
+			nextMove = Math.floor(Math.random() * (totalCells))
+			if (symbols[nextMove] === '' && nextMove !== nCell) break
+			
+			let freeCounter = 0
+			for (const symbol of symbols)
+				if (symbol === '')
+					freeCounter += 1
+			
+			if (freeCounter <= 1) break
+		}
+		return nextMove
 	}
 
 	return (
