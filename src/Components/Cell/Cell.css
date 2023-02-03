@@ -13,6 +13,17 @@
   cursor: pointer;
 }
 
+/* animation */
+@keyframes pop_out {
+	from {
+		transform: scale(0);
+		border: 0;
+	}
+	to {
+		transform: scale(1);
+	}
+}
+
 .cell.x,
 .cell.circle {
   cursor: not-allowed;
@@ -22,12 +33,14 @@
 .cell.x::after,
 .cell.circle::before {
   background-color: black;
+	animation: pop_out 50ms linear;
 }
 
 .board.x .cell:not(.x):not(.circle):hover::before,
 .board.x .cell:not(.x):not(.circle):hover::after,
 .board.circle .cell:not(.x):not(.circle):hover::before {
   background-color: lightgrey;
+
 }
 
 .cell.x::before,
